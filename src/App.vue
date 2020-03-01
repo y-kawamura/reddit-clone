@@ -13,9 +13,12 @@
         </a>
       </div>
     </nav>
-    <router-view/>
+    <router-view class="container main" />
   </div>
 </template>
 
 <style lang="scss">
+.main {
+  margin-top: 2rem;
+}
 </style>
