@@ -1,4 +1,5 @@
 import firebase from '@/firebase';
+import db from '@/db';
 
 const state = {
   user: {},
@@ -22,6 +23,7 @@ const actions = {
       image: user.photoURL,
       created_at: firebase.firestore.FieldValue.serverTimestamp(),
     };
+    db.collection('users').doc(setUser.id).set(setUser);
     commit('setUser', setUser);
   },
 };
