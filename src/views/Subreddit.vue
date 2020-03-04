@@ -28,24 +28,11 @@
             <strong v-else>{{ post.title }}</strong>
             <small class="is-block">
               @{{ userById(post.user_id).name }}
-               {{ new Date(post.created_at.seconds).toLocaleString() }}
+               {{ timeSince(post.created_at.toDate()) }}
             </small>
             {{ post.description }}
           </p>
         </div>
-        <nav class="level is-mobile">
-          <div class="level-left">
-            <a class="level-item">
-              <span class="icon is-small"><i class="fas fa-reply"></i></span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small"><i class="fas fa-retweet"></i></span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small"><i class="fas fa-heart"></i></span>
-            </a>
-          </div>
-        </nav>
       </div>
       <figure class="media-right" v-if="isImage(post.url)">
         <p class="image is-128x128">
@@ -58,6 +45,7 @@
 
 <script>
 import { mapState, mapGetters, mapActions } from 'vuex';
+import MyDate from '@/date';
 
 export default {
   data() {
@@ -109,6 +97,9 @@ export default {
         };
         this.showForm = false;
       }
+    },
+    timeSince(date) {
+      return MyDate.timeSince(date);
     },
   },
 };
