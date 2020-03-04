@@ -1,7 +1,15 @@
 <template>
   <section>
-    <h1>Subreddits</h1>
-    <pre>{{ subreddits }}</pre>
+    <aside class="menu">
+      <p class="menu-label">
+        GENERAL
+      </p>
+      <ul class="menu-list">
+        <li v-for="subreddit in subreddits" :key="subreddit.id">
+          <a>{{ subreddit.name }}</a>
+        </li>
+      </ul>
+    </aside>
   </section>
 </template>
 
