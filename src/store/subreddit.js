@@ -30,6 +30,7 @@ const actions = {
     try {
       await posts.doc(newPost.id).set(newPost);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   },

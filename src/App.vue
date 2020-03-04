@@ -50,6 +50,8 @@ export default {
 <style lang="scss">
 .main {
   margin-top: 2rem;
+  padding: 0 1rem;
+  max-width: 600px;
 }
 
 .navbar-brand {
