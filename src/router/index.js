@@ -15,6 +15,11 @@ const routes = [
     name: 'Subreddits',
     component: () => import('../views/Subreddits.vue'),
   },
+  {
+    path: '/r/:name',
+    name: 'Subreddit',
+    component: () => import('../views/Subreddit.vue'),
+  },
 ];
 
 const router = new VueRouter({
