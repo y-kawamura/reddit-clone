@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged((user) => {
     };
     db.collection('users').doc(setUser.id).set(setUser);
     store.commit('auth/setUser', setUser);
-    router.push('Subreddits', () => {}, () => {});
+    router.push({ name: 'Subreddits' });
   } else {
     store.commit('auth/setUser', null);
   }
