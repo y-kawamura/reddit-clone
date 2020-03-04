@@ -14,6 +14,7 @@
       </b-field>
       <button class="button is-primary">Submit</button>
     </form>
+    <pre>{{posts}}</pre>
   </section>
 </template>
 
@@ -33,12 +34,19 @@ export default {
   mounted() {
     this.initSubreddit(this.$route.params.name);
   },
+  watch: {
+    subreddit() {
+      if (this.subreddit.id) {
+        this.initPosts(this.subreddit.id);
+      }
+    },
+  },
   computed: {
     ...mapState('subreddit', ['posts']),
     ...mapGetters('subreddit', ['subreddit']),
   },
   methods: {
-    ...mapActions('subreddit', ['createPost', 'initSubreddit']),
+    ...mapActions('subreddit', ['createPost', 'initSubreddit', 'initPosts']),
     async onCreatePost() {
       if (this.post.title && (this.post.description || this.post.url)) {
         await this.createPost(this.post);
