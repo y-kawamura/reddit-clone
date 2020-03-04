@@ -2,20 +2,22 @@
   <section>
     <h1>{{ subreddit.name }}</h1>
     <hr />
-    <button @click="showForm = !showForm" class="button is-primary">Toggle Form</button>
-    <form v-if="showForm" @submit.prevent="onCreatePost">
-      <b-field label="Title">
-        <b-input v-model="post.title" required></b-input>
-      </b-field>
-      <b-field label="Description">
-        <b-input v-model="post.description" type="textarea"></b-input>
-      </b-field>
-      <b-field label="URL">
-        <b-input v-model="post.url" type="url"></b-input>
-      </b-field>
-      <button class="button is-primary">Submit</button>
-    </form>
-    <hr />
+    <div v-if="isLoggedIn" >
+      <button @click="showForm = !showForm" class="button is-primary">Toggle Form</button>
+      <form v-if="showForm" @submit.prevent="onCreatePost">
+        <b-field label="Title">
+          <b-input v-model="post.title" required></b-input>
+        </b-field>
+        <b-field label="Description">
+          <b-input v-model="post.description" type="textarea"></b-input>
+        </b-field>
+        <b-field label="URL">
+          <b-input v-model="post.url" type="url"></b-input>
+        </b-field>
+        <button class="button is-success">Submit</button>
+      </form>
+      <hr />
+    </div>
     <article class="media" v-for="post in posts" :key="post.id">
       <div class="media-content">
         <div class="content">
@@ -79,6 +81,7 @@ export default {
   },
   computed: {
     ...mapState('subreddit', ['posts']),
+    ...mapState('auth', ['isLoggedIn']),
     ...mapGetters('subreddit', ['subreddit']),
   },
   methods: {
@@ -89,8 +92,20 @@ export default {
     async onCreatePost() {
       if (this.post.title && (this.post.description || this.post.url)) {
         await this.createPost(this.post);
+        this.post = {
+          title: '',
+          description: '',
+          url: '',
+        };
+        this.showForm = false;
       }
     },
   },
 };
 </script>
+
+<style scoped>
+form {
+  margin-top: 1rem;
+}
+</style>
