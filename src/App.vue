@@ -20,7 +20,7 @@
             </div>
             <div v-if="isLoggedIn">
               <div class="avatar">
-                <img :src="user.image">
+                <img :src="user.image" alt="avatar image">
                 <span>{{ user.name }}</span>
                 <a
                   class="button is-small is-danger is-outlined"
