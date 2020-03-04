@@ -26,9 +26,10 @@
               <a :href="post.url" target="_blank">{{ post.title }}</a>
             </strong>
             <strong v-else>{{ post.title }}</strong>
-            <small> @{{ post.user_id }}</small>
-            <small> {{ new Date(post.created_at.seconds).toLocaleString() }}</small>
-            <br>
+            <small class="is-block">
+              @{{ userById(post.user_id).name }}
+               {{ new Date(post.created_at.seconds).toLocaleString() }}
+            </small>
             {{ post.description }}
           </p>
         </div>
@@ -71,6 +72,7 @@ export default {
   },
   mounted() {
     this.initSubreddit(this.$route.params.name);
+    this.initUsers();
   },
   watch: {
     subreddit() {
@@ -83,9 +85,17 @@ export default {
     ...mapState('subreddit', ['posts']),
     ...mapState('auth', ['isLoggedIn']),
     ...mapGetters('subreddit', ['subreddit']),
+    ...mapGetters('users', ['getUserById']),
+    userById() {
+      return (id) => {
+        const user = this.getUserById(id);
+        return user ?? { name: 'unknown user' };
+      };
+    },
   },
   methods: {
     ...mapActions('subreddit', ['createPost', 'initSubreddit', 'initPosts']),
+    ...mapActions('users', { initUsers: 'init' }),
     isImage(url) {
       return url.match(/(png|jpg|jpeg|gif|svg)$/);
     },
